@@ -7,7 +7,7 @@ export const PageLayout = () => {
         <div className="relative">
             <Navbar />
             <Sidebar />
-            <main className="mx-auto px-4 py-8 container">
+            <main className="md:w-4/5 mx-auto container">
                 <Outlet />
             </main>
         </div>

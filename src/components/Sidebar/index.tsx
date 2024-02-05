@@ -31,11 +31,10 @@ const Sidebar = () => {
 
     return (
         <>
-            <div className='absolute top-0 left-0 w-screen h-screen bg-neutral-500 bg-opacity-70' hidden={context?.showSidebar ? false : true}>
-                oi
+            <div className='absolute top-0 left-0 w-screen h-screen bg-neutral-500 bg-opacity-70 z-40' hidden={context?.showSidebar ? false : true}>
             </div>
             <aside
-                className={`${context?.showSidebar ? styles.show : styles.hide} transition-all absolute top-0 bg-white w-2/3 h-screen px-6 pt-8 rounded-md`}
+                className={`${context?.showSidebar ? styles.show : styles.hide} transition-all absolute top-0 bg-white w-2/3 h-screen px-6 pt-8 rounded-md z-50`}
                 ref={wrapperRef}
             >
                 <h2 className='font-bold border-b-2 pb-2 border-stone-900 mb-1'>

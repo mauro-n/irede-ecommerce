@@ -42,7 +42,7 @@ export const Navbar = () => {
                 <a href="/">
                     Categorias
                 </a>
-                <a href="/" className='text-orange-500'>
+                <a href="/meus-pedidos" className='text-orange-500'>
                     Meus Pedidos
                 </a>
             </nav>
