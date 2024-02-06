@@ -7,9 +7,7 @@ export const PageLayout = () => {
         <div className="relative">
             <Navbar />
             <Sidebar />
-            <main className="md:w-4/5 mx-auto container">
-                <Outlet />
-            </main>
+            <Outlet />
         </div>
     )
 }
