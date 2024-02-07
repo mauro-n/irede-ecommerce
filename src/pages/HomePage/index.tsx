@@ -21,12 +21,17 @@ const HomePage = () => {
                             />
                         </div>
                     </div>
-                    <div className='hidden md:block'>
+                    <div className='hidden md:block relative'>
                         <img
                             src={desktopBanner}
                             alt=""
                             className='w-full'
                         />
+                        <div className='flex absolute bottom-24 right-36 justify-center'>
+                            <DefaultBtn
+                                text='Aproveitar Oferta'
+                            />
+                        </div>
                     </div>
                 </div>
             </section>
@@ -34,7 +39,7 @@ const HomePage = () => {
                 <h2 className='text-3xl text-blue-900 font-bold'>
                     Destaques
                 </h2>
-                <div className='flex flex-col items-center gap-5 py-10'>
+                <div className='flex flex-row justify-center flex-wrap items-center gap-5 py-10 md:flex-row'>
                     <ProductCard />
                     <ProductCard />
                     <ProductCard />

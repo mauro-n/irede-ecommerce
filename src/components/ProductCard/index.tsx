@@ -2,7 +2,7 @@ import productImg from '../../assets/ProductMockImg.png'
 
 const ProductCard = () => {
     return (
-        <article className='w-80'>
+        <article className='w-36 md:w-32 shadow-md'>
             <div>
                 <img
                     src={productImg}
@@ -11,8 +11,8 @@ const ProductCard = () => {
                 />
             </div>
             <div className='bg-zinc-50 px-2 py-4 rounded-b-md'>
-                <h4 className='text-blue-900 text-2xl font-bold'>
-                    Nique Air
+                <h4 className='text-blue-900 text-lg font-bold'>
+                    Nique Air Surf
                 </h4>
                 <p className='-my-1'>
                     Tênis
