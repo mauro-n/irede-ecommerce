@@ -17,7 +17,7 @@ interface MainContextProvider {
 
 
 export const MainContextProvider = ({ children }: MainContextProvider) => {
-    const [context, setContext] = useState<contextContent>({ showSidebar: false })
+    const [context, setContext] = useState<contextContent>({ showSidebar: false, showSideCart: false })
 
     return (
         <Context.Provider value={{ context, setContext }}>

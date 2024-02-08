@@ -1,0 +1,7 @@
+.show {
+    right: 0
+}
+
+.hide {
+    right: -100vw;
+}

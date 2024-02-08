@@ -1,5 +1,5 @@
 import logo from '../../assets/logo2.svg'
-import shoppingCart from '../../assets/shoppingCartIcon.svg'
+import ShoppingCartBtn from '../ShoppingCartBtn'
 import DefaultBtn from '../DefaultBtn'
 import { HamburguerBtn } from '../HamburguerBtn'
 import { SearchBar } from '../SearchBar'
@@ -24,9 +24,7 @@ export const Navbar = () => {
                             text='Entrar'
                         />
                     </div>
-                    <button role='link'>
-                        <img src={shoppingCart} className='h-9' alt="E-Rede Store" />
-                    </button>
+                    <ShoppingCartBtn />
                 </div>
             </div>
             <div className='md:hidden'>
