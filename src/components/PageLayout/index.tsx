@@ -6,7 +6,7 @@ import SideCart from "../SideCart"
 
 export const PageLayout = () => {
     return (
-        <div className="relative">
+        <div className="relative overflow-hidden">
             <Navbar />
             <Sidebar />
             <SideCart />

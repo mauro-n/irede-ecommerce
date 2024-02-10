@@ -3,8 +3,11 @@ import ShoppingCartBtn from '../ShoppingCartBtn'
 import DefaultBtn from '../DefaultBtn'
 import { HamburguerBtn } from '../HamburguerBtn'
 import { SearchBar } from '../SearchBar'
+import { useLocation } from 'react-router-dom'
 
 export const Navbar = () => {
+    const location = useLocation()
+
     return (
         <nav className='px-10 pt-12 pb-12 md:pb-4 bg-blue-900 flex flex-col gap-7'>
             <div className='flex justify-between gap-x-10'>
@@ -31,16 +34,24 @@ export const Navbar = () => {
                 <SearchBar />
             </div>
             <nav className='hidden md:flex justify-center text-white font-medium gap-8'>
-                <a href="/">
+                <a href="/"
+                    className={location.pathname === '/' ? 'text-orange-500' : ''}
+                >
                     Home
                 </a>
-                <a href="/">
+                <a href="/products"
+                    className={location.pathname === '/products' ? 'text-orange-500' : ''}
+                >
                     Produtos
                 </a>
-                <a href="/">
+                <a href="/categorias"
+                    className={location.pathname === '/categorias' ? 'text-orange-500' : ''}
+                >
                     Categorias
                 </a>
-                <a href="/meus-pedidos" className='text-orange-500'>
+                <a href="/meus-pedidos"
+                    className={location.pathname === '/meus-pedidos' ? 'text-orange-500' : ''}
+                >
                     Meus Pedidos
                 </a>
             </nav>
