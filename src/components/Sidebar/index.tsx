@@ -4,6 +4,7 @@ import { SidebarBtn } from '../SidebarBtn'
 import { Context, contextContent } from '../../context'
 import useOutsideAlerter from '../../hooks/useOutsideAlerter'
 import { useLocation } from 'react-router-dom'
+import SecondaryBtn from '../SecondaryBtn'
 
 const Sidebar = () => {
     const { context, setContext } = useContext(Context)
@@ -44,6 +45,17 @@ const Sidebar = () => {
                 <SidebarBtn title='Produtos' />
                 <SidebarBtn title='Categorias' />
                 <SidebarBtn title='Meus pedidos' active={location.pathname === '/meus-pedidos'} to={'/meus-pedidos'} />
+                <hr />
+                <div className='flex justify-around pt-2'>
+                    <a href="/signup">
+                        Cadastre-se
+                    </a>
+                    <a href="/login">
+                        <SecondaryBtn
+                            text='Entrar'
+                        />
+                    </a>
+                </div>
             </aside>
         </>
     )

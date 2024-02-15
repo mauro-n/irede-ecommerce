@@ -1,8 +1,16 @@
 import mockImg from '../../assets/ProductMockImg.png'
 
-const PedidoCard = ({ short = false }) => {
+interface PedidoCard extends React.HTMLAttributes<HTMLDivElement> {
+    base_price?: string,
+    qtd?: number,
+    short?: boolean
+}
+
+const PedidoCard = ({ title, base_price, short = false, ...props }: PedidoCard) => {
     return (
-        <article className='flex flex-col md:flex-row md:justify-between gap-y-2 py-4'>
+        <article
+            {...props}
+            className='flex flex-col md:flex-row md:justify-between gap-y-2 py-4'>
             <div className='flex justify-start items-center gap-x-6 md:w-2/3 sm:w-3/4'>
                 <img
                     src={mockImg}
@@ -11,13 +19,13 @@ const PedidoCard = ({ short = false }) => {
                 />
                 <div>
                     <h3 className={`font-medium ${short ? 'text-base' : 'text-2xl'}  md:text-base`}>
-                        Nique Air Surf
+                        {title}
                     </h3>
                     <p className='font-medium text-stone-500 md:text-sm md:-translate-y-1'>
                         Tênis
                     </p>
                     <p className='font-medium text-2xl md:text-base md:text-orange-500'>
-                        R$ 220,00
+                        R$ {base_price?.replace('.', ',')}
                     </p>
                 </div>
             </div>

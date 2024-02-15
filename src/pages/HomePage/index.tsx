@@ -1,9 +1,32 @@
+import api from '../../api'
 import mobileBanner from '../../assets/mobileBanner.png'
 import DefaultBtn from '../../components/DefaultBtn'
 import ProductCard from '../../components/ProductCard'
 import desktopBanner from '../../assets/bannerDesktop.png'
+import { useEffect, useState } from 'react'
+import cartService from '../../services/cartService'
 
 const HomePage = () => {
+    const [products, setProducts] = useState<ProductCard[]>()
+
+    useEffect(() => {
+        getData('/products')
+    }, [])
+
+    const getData = async (url: string) => {
+        try {
+            const response = await api.getData(url)
+            const data = await response.json()
+            setProducts(data)
+        } catch (err) {
+
+        }
+    }
+
+    const handleAddToCart = (obj: ProductCard) => {
+        cartService.updateCart(obj)
+    }
+
     return (
         <main>
             <section>
@@ -39,10 +62,18 @@ const HomePage = () => {
                 <h2 className='text-3xl text-blue-900 font-bold'>
                     Destaques
                 </h2>
-                <div className='flex flex-row justify-center flex-wrap items-center gap-5 py-10 md:flex-row'>
-                    <ProductCard />
-                    <ProductCard />
-                    <ProductCard />
+                <div className='flex flex-row justify-center md:justify-start flex-wrap items-center gap-5 py-10 md:flex-row'>
+                    {products && products.map((el, i) => {
+                        return (
+                            <ProductCard
+                                id={el.id}
+                                key={i}
+                                title={el.title}
+                                base_price={el.base_price}
+                                onClick={() => handleAddToCart(el)}
+                            />
+                        )
+                    })}
                 </div>
             </section>
         </main>

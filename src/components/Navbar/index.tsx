@@ -4,9 +4,12 @@ import DefaultBtn from '../DefaultBtn'
 import { HamburguerBtn } from '../HamburguerBtn'
 import { SearchBar } from '../SearchBar'
 import { useLocation } from 'react-router-dom'
+import { useState } from 'react'
+import CartDropdown from '../CartDropdown'
 
 export const Navbar = () => {
     const location = useLocation()
+    const [cartDrop, setCartDrop] = useState(false)
 
     return (
         <nav className='px-10 pt-12 pb-12 md:pb-4 bg-blue-900 flex flex-col gap-7'>
@@ -19,15 +22,26 @@ export const Navbar = () => {
                     <SearchBar />
                 </div>
                 <div className='flex items-center gap-x-8'>
-                    <a className='text-white font-medium hidden md:block' href="#">
+                    <a className='text-white font-medium hidden md:block' href="/signup">
                         Cadastre-se
                     </a>
-                    <div className='md:block hidden'>
+                    <a className='md:block hidden' href="/login">
                         <DefaultBtn
                             text='Entrar'
                         />
+                    </a>
+                    <div
+                        onClick={() => setCartDrop(prev => !prev)}
+                    >
+                        <ShoppingCartBtn />
                     </div>
-                    <ShoppingCartBtn />
+                    <div className='relative'>
+                        {cartDrop &&
+                            <CartDropdown
+                                onClose={() => { setCartDrop(false) }}
+                            />
+                        }
+                    </div>
                 </div>
             </div>
             <div className='md:hidden'>
