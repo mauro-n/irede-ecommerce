@@ -8,6 +8,7 @@ import CategoryPage from "../pages/CategoryPage";
 import routesEnum from '../enum/routes'
 import DashboardPage from "../pages/DashboardPage";
 import DashboardLayout from "../components/DashboardLayout";
+import ProductPage from "../pages/ProductPage";
 
 const router = createBrowserRouter([
     {
@@ -25,7 +26,11 @@ const router = createBrowserRouter([
             {
                 path: routesEnum.categories,
                 element: <CategoryPage />
-            }
+            },
+            {
+                path: routesEnum.products,
+                element: <ProductPage />
+            },
 
         ]
     },

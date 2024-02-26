@@ -52,8 +52,8 @@ const CartDropdown = ({ onClose }: CartDropdown) => {
                 window.scrollTo({ top: 0, behavior: 'smooth' })
                 setHasCheckout(true)
                 Cart.clear()
-                setContext && setContext((prev: any) => {
-                    return { ...prev }
+                setContext && setContext(() => {
+                    return {}
                 })
                 setCartItems([])
             } else if (response.status === 401) {

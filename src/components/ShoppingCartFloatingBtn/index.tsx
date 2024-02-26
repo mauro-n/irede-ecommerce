@@ -45,7 +45,7 @@ const ShoppingCartFloatingBtn = ({ ...props }: ShoppingCartFloatingBtn) => {
         <div
             {...props}
             ref={cartRef}
-            className={`fixed z-50 right-10 top-6 bg-green-400 px-4 py-4 rounded-full transition-all cursor-pointer ${show ? 'opacity-100' : 'opacity-0 -z-50'}`}
+            className={`fixed z-50 right-10 top-6 bg-green-400 px-4 py-4 rounded-full transition-all cursor-pointer ${show ? 'opacity-100' : 'hidden'}`}
         >
             <img src={shoppingCart} className='h-9' alt="E-Rede Store" />
             <div className='relative'>
