@@ -1,7 +1,30 @@
+import { useEffect, useState } from "react"
 import MeusPedidosAside from "../../components/MeusPedidosAside"
 import PedidoCard from "../../components/PedidoCard"
+import Api from "../../services/Api"
+import { useNavigate } from "react-router-dom"
 
 const MeusPedidosPage = () => {
+    const [data, setData] = useState([])
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        getData()
+    }, [])
+
+    const getData = async () => {
+        try {
+            const response = await Api.getDataAuth('/orders')
+            if (response.status === 401) {
+                navigate('/login')
+            }
+            const data = await response.json()
+            setData(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     return (
         <main className="flex flex-col md:flex-row md:gap-x-6 py-8 gap-y-8 px-4 md:w-4/5 mx-auto container">
             <MeusPedidosAside />
@@ -11,13 +34,34 @@ const MeusPedidosPage = () => {
                         Meus Pedidos
                     </h3>
                     <p className="text-stone-500">
-                        Status meus pedidos
+                        Status
                     </p>
                 </div>
                 <hr className="hidden md:block bg-stone-700" />
-                <PedidoCard />
-                <hr className="bg-stone-500" />
-                <PedidoCard />
+                {data.length > 0 ? data.map((order: any) => {
+                    let total = 0
+                    if (order.sale_items) {
+                        total = order.sale_items.reduce((acc: number, curr: any) => {
+                            const qtd = parseFloat(curr.product_qtd)
+                            const price = parseFloat(curr.product_curr_price)
+                            const result = acc + (qtd * price)
+                            return result
+                        }, 0)
+                    }
+
+                    return (
+                        <div key={order.id}>
+                            <PedidoCard
+                                id={order.id}
+                                data={order.created_at}
+                                items={order.sale_items}
+                                total={total}
+                                status={order.status}
+                            />
+                            <hr className="bg-stone-500" />
+                        </div>
+                    )
+                }) : <></>}
             </div>
         </main>
     )

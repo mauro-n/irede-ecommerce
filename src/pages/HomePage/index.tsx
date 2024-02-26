@@ -1,21 +1,25 @@
-import api from '../../api'
 import mobileBanner from '../../assets/mobileBanner.png'
 import DefaultBtn from '../../components/DefaultBtn'
 import ProductCard from '../../components/ProductCard'
 import desktopBanner from '../../assets/bannerDesktop.png'
-import { useEffect, useState } from 'react'
-import cartService from '../../services/cartService'
+import { useContext, useEffect, useState } from 'react'
+import cartService from '../../services/Cart'
+import Api from '../../services/Api'
+import { Context } from '../../context'
 
 const HomePage = () => {
     const [products, setProducts] = useState<ProductCard[]>()
+    const { setContext } = useContext(Context)
 
     useEffect(() => {
+        const img = new Image()
+        img.src = desktopBanner
         getData('/products')
     }, [])
 
     const getData = async (url: string) => {
         try {
-            const response = await api.getData(url)
+            const response = await Api.getData(url)
             const data = await response.json()
             setProducts(data)
         } catch (err) {
@@ -24,6 +28,9 @@ const HomePage = () => {
     }
 
     const handleAddToCart = (obj: ProductCard) => {
+        setContext && setContext((prev: any) => {
+            return { ...prev }
+        })
         cartService.updateCart(obj)
     }
 
@@ -33,6 +40,7 @@ const HomePage = () => {
                 <div className="relative">
                     <div className='md:hidden'>
                         <img
+                            loading='eager'
                             src={mobileBanner}
                             alt=""
                             className='w-full'
@@ -70,7 +78,9 @@ const HomePage = () => {
                                 key={i}
                                 title={el.title}
                                 base_price={el.base_price}
+                                img={el.img}
                                 onClick={() => handleAddToCart(el)}
+                                categories={el.categories}
                             />
                         )
                     })}

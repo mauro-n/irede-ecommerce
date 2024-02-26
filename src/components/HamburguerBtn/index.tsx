@@ -1,23 +1,12 @@
-import { useContext } from 'react'
 import hamBtn from '../../assets/hamburguerBtn.svg'
-import { Context, contextContent } from '../../context'
+interface HamburguerBtn extends React.HTMLAttributes<HTMLDivElement> { }
 
-export const HamburguerBtn = () => {
-    const { context, setContext } = useContext(Context)
-
-    const toggleModal = () => {
-        if (!setContext) return
-        setContext((prev: contextContent) => {
-            return { ...prev, showSidebar: true }
-        })
-    }
-
+export const HamburguerBtn = ({ ...props }: HamburguerBtn) => {
     return (
         <div
+            {...props}
             role='button'
-            onClick={toggleModal}
             tabIndex={0}
-            onKeyDown={(event) => { event.key === 'Enter' ? toggleModal() : null }}
             className='relative'>
             <img src={hamBtn} className='h-8' alt="Menu de opções" />
         </div>

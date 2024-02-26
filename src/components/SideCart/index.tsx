@@ -2,9 +2,10 @@ import { useContext, useEffect, useRef, useState } from "react"
 import { Context, contextContent } from "../../context"
 import useOutsideAlerter from "../../hooks/useOutsideAlerter"
 import styles from './styles.module.css'
-import cartService from "../../services/cartService"
+import cartService from "../../services/Cart"
 import ProductCard from "../ProductCard"
 import CartCard from "../CartCard"
+import SecondaryBtn from "../SecondaryBtn"
 
 const SideCart = () => {
     const { context, setContext } = useContext(Context)
@@ -65,6 +66,34 @@ const SideCart = () => {
                         />
                     )
                 })}
+                {cartItems.length > 0 ?
+                    <>
+                        <hr className="border border-stone-600 w-full" />
+                        <h3 className="w-full flex gap-x-4 items-center py-4">
+                            <span className="text-xl font-semibold">
+                                Valor total:
+                            </span>
+                            <span className="text-xl text-blue-900 font-bold">
+                                R$&nbsp;
+                                {cartItems.reduce((acc, el) => {
+                                    const val = Number(el.base_price)
+                                    const qtd = Number(el.qtd)
+                                    return acc + (val * qtd)
+                                }, 0).toFixed(2)}
+                            </span>
+                        </h3>
+                        <div className="flex justify-around w-full">
+                            <button
+                                className="text-stone-500 font-semibold hover:underline"
+                            >
+                                Esvaziar
+                            </button>
+                            <SecondaryBtn
+                                text="Finalizar compra"
+                            />
+                        </div>
+                    </> : <></>
+                }
             </aside>
         </div>
     )

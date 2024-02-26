@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom'
 import useOutsideAlerter from '../../hooks/useOutsideAlerter'
 import SecondaryBtn from '../SecondaryBtn'
 
-const Sidebar = () => {
+const DashSidebar = () => {
     const { context, setContext } = useContext(Context)
     const wrapperRef = useRef<HTMLDivElement>(null)
     const firstBtnRef = useRef<HTMLButtonElement>(null)
@@ -43,7 +43,7 @@ const Sidebar = () => {
                 ref={wrapperRef}
             >
                 <h2 className='font-bold border-b-2 pb-2 border-stone-900 mb-1'>
-                    Páginas
+                    Dashboard
                 </h2>
                 <SidebarBtn title='Home' active={location.pathname === '/'} to={'/'} />
                 <SidebarBtn title='Produtos' />
@@ -74,4 +74,4 @@ const Sidebar = () => {
     )
 }
 
-export default Sidebar
+export default DashSidebar

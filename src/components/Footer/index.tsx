@@ -3,12 +3,12 @@ import socials from '../../assets/socials.png'
 
 const Footer = () => {
     return (
-        <footer className="bg-blue-900 text-white px-4 py-6 flex flex-col gap-y-7 text-xs">
+        <footer className="bg-blue-900 text-white px-4 py-6 flex flex-col gap-y-7 text-xs h-72 w-screen">
             <div className="flex flex-col gap-y-7 md:flex-row md:gap-x-12 md:px-20">
                 <div className="flex flex-row gap-6 md:w-3/12">
                     <div>
-                        <img src={logo} className='w-56' alt="" />
-                        <img src={socials} className='mt-8 ml-8 scale-100' alt="" />
+                        <img src={logo} className='min-w-28 max-w-28' alt="" />
+                        <img src={socials} className='mt-8 ml-0 w-28' alt="" />
                     </div>
                     <p className='text-xs'>
                         Lorem ipsum, dolor sit amet consectetur adipisicing elit. In optio error cum modi saepe?

@@ -1,6 +1,6 @@
 import ProductCard from "../components/ProductCard"
 
-class CartService {
+class Cart {
     readonly cartKey: string = 'cart'
 
     get(key: string) {
@@ -17,6 +17,10 @@ class CartService {
             return []
         }
         return JSON.parse(result)
+    }
+
+    clear() {
+        localStorage.removeItem(this.cartKey)
     }
 
     removeById(id: string) {
@@ -55,4 +59,4 @@ class CartService {
 
 }
 
-export default new CartService()
+export default new Cart()

@@ -1,46 +1,83 @@
-import mockImg from '../../assets/ProductMockImg.png'
+import { useState } from 'react'
+import PedidoItem from '../PedidoItem'
+import { orderStatus } from '../../enum/orders'
 
 interface PedidoCard extends React.HTMLAttributes<HTMLDivElement> {
-    base_price?: string,
+    total: number,
     qtd?: number,
-    short?: boolean
+    data: string,
+    items: any[],
+    status: string
 }
 
-const PedidoCard = ({ title, base_price, short = false, ...props }: PedidoCard) => {
+const PedidoCard = ({ id, title, total, items, status, data, ...props }: PedidoCard) => {
+    const [expanded, setExpanded] = useState(false)
+    const toggleExpanded = () => {
+        setExpanded((prev) => !prev)
+    }    
     return (
-        <article
-            {...props}
-            className='flex flex-col md:flex-row md:justify-between gap-y-2 py-4'>
-            <div className='flex justify-start items-center gap-x-6 md:w-2/3 sm:w-3/4'>
-                <img
-                    src={mockImg}
-                    alt="Um tênis branco da Nique com detalhes azuis"
-                    className='w-1/3 max-w-16'
-                />
-                <div>
-                    <h3 className={`font-medium ${short ? 'text-base' : 'text-2xl'}  md:text-base`}>
-                        {title}
-                    </h3>
-                    <p className='font-medium text-stone-500 md:text-sm md:-translate-y-1'>
-                        Tênis
-                    </p>
-                    <p className='font-medium text-2xl md:text-base md:text-orange-500'>
-                        R$ {base_price?.replace('.', ',')}
-                    </p>
+        <div>
+            <article
+                {...props}
+                className={`flex flex-col md:flex-row md:justify-between gap-y-2 p-4 cursor-pointer ${!expanded && 'hover:bg-slate-200'}`}
+                onClick={() => { toggleExpanded() }}
+            >
+                <div className='flex justify-start items-center gap-x-6 md:w-2/3 sm:w-3/4'>
+                    <div>
+                        <h3 className={`font-medium text-2xl md:text-base`}>
+                            Pedido: #{id}
+                        </h3>
+                        <p className='font-medium text-stone-500 md:text-sm md:-translate-y-1'>
+                            {new Date(data).toLocaleDateString()}
+                        </p>
+                        <p className='font-medium text-2xl md:text-base md:text-orange-500'>                            
+                            Total: R$ {String(total.toFixed(2)).replace('.', ',')}
+                        </p>
+                    </div>
                 </div>
-            </div>
-            {!short &&
-                <div className='flex justify-between items-center'>
+                <div className='min-w-1/2 flex flex-col justify-center items-end gap-y-2'>
                     <p className='text-2xl text-stone-500 md:hidden'>
                         Status:
                     </p>
-                    <p className='text-3xl md:text-base text-green-700 font-medium'>
-                        Finalizado
-                    </p>
+                    {status === orderStatus.pendingPayment ?
+                        <p className='text-sm font-medium text-end leading-4'>
+                            Aguardando pagamento
+                        </p> :
+                        <></>
+                    }
+                    {status === orderStatus.complete ?
+                        <p className='text-sm font-medium text-green-700 text-end leading-4'>
+                            Entregue
+                        </p> :
+                        <></>
+                    }
+                    {status === orderStatus.transit ?
+                        <p className='text-sm font-medium text-green-700 text-end leading-4'>
+                            Em trânsito
+                        </p> :
+                        <></>
+                    }
+                    <button
+                        className='underline'
+                    >
+                        {expanded ? 'Esconder' : 'Ver detalhes'}
+                    </button>
                 </div>
-            }
-
-        </article>
+            </article>
+            <div className={`overflow-y-hidden ${expanded ? 'h-auto' : 'h-0'}`}>
+                {items.length > 0 ?
+                    items.map((item, id) => {
+                        return (
+                            <PedidoItem
+                                key={id}
+                                title={item.product.title}
+                                qtd={item.product_qtd}
+                                price={item.product_curr_price}
+                            />
+                        )
+                    }) : <></>}
+            </div>
+        </div>
     )
 }
 

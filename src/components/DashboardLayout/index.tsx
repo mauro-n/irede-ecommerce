@@ -1,16 +1,15 @@
 import { Outlet } from "react-router-dom"
-import { Navbar } from "../Navbar"
-import Sidebar from "../Sidebar"
 import Footer from "../Footer"
-import SideCart from "../SideCart"
 import { useContext, useEffect } from "react"
 import Auth from "../../services/Auth"
 import { Context } from "../../context"
 import { anyObject } from "../.."
-import ShoppingCartFloatingBtn from "../ShoppingCartFloatingBtn"
+import DashNavbar from "../DashNavbar"
+import DashSidebar from "../DashSidebar"
+import DashFooter from "../DashFooter"
 
 
-export const PageLayout = () => {
+const DashboardLayout = () => {
     const { setContext } = useContext(Context)
 
     useEffect(() => {
@@ -27,20 +26,14 @@ export const PageLayout = () => {
         })
     }
 
-    const handleScrollTop = () => {            
-        window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
-
     return (
         <div className="relative overflow-hidden">
-            <Navbar />
-            <Sidebar />
-            <SideCart />
-            <ShoppingCartFloatingBtn
-                onClick={handleScrollTop}
-            />
+            <DashNavbar />
+            <DashSidebar />
             <Outlet />
-            <Footer />
+            <DashFooter />
         </div>
     )
 }
+
+export default DashboardLayout

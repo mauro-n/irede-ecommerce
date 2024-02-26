@@ -15,7 +15,7 @@ const ShoppingCartBtn = () => {
     return (
         <button
             role='link'
-            onClick={toggleModal}
+            onClick={toggleModal}            
         >
             <img src={shoppingCart} className='h-9' alt="E-Rede Store" />
         </button>

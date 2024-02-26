@@ -1,5 +1,5 @@
 import mockImg from '../../assets/ProductMockImg.png'
-import cartService from '../../services/cartService'
+import cartService from '../../services/Cart'
 
 interface CartCard extends React.HTMLAttributes<HTMLDivElement> {
     id: string,

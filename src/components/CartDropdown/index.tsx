@@ -1,19 +1,24 @@
 import { useContext, useEffect, useState } from "react"
 import { Context } from "../../context"
 import styles from './styles.module.css'
-import cartService from "../../services/cartService"
+import cartService from "../../services/Cart"
 import ProductCard from "../ProductCard"
 import CartCard from "../CartCard"
 import DefaultBtn from "../DefaultBtn"
 import SecondaryBtn from "../SecondaryBtn"
+import { Link, useNavigate } from "react-router-dom"
+import Api from "../../services/Api"
+import Cart from "../../services/Cart"
 
 interface CartDropdown {
     onClose?: Function
 }
 
 const CartDropdown = ({ onClose }: CartDropdown) => {
-    const { context, } = useContext(Context)
+    const { context, setContext } = useContext(Context)
     const [cartItems, setCartItems] = useState<ProductCard[]>([])
+    const [hasCheckout, setHasCheckout] = useState(false)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const cart = cartService.getCart()
@@ -23,9 +28,7 @@ const CartDropdown = ({ onClose }: CartDropdown) => {
     }, [context])
 
     const handleClose = () => {
-        if (onClose) {
-            onClose()
-        }
+        onClose && onClose()
     }
 
     const handleRemoveCartItem = (id: string) => {
@@ -33,6 +36,32 @@ const CartDropdown = ({ onClose }: CartDropdown) => {
             const updatedCart: ProductCard[] = prev?.filter(el => el.id !== id)
             return updatedCart
         })
+    }
+
+    const handleCheckout = async () => {
+        try {
+            const cart = cartService.getCart()
+            const itemsF = cart.map((el) => {
+                return { id: el.id, qtd: el.qtd, currPrice: el.base_price }
+            })
+            const response = await Api.postJsonAuth('/orders', {
+                items: itemsF
+            })
+
+            if (response.status === 201) {
+                window.scrollTo({ top: 0, behavior: 'smooth' })
+                setHasCheckout(true)
+                Cart.clear()
+                setContext && setContext((prev: any) => {
+                    return { ...prev }
+                })
+                setCartItems([])
+            } else if (response.status === 401) {
+                navigate('/login?to=cart')
+            }
+        } catch (err) {
+            console.log(err)
+        }
     }
 
     return (
@@ -46,6 +75,15 @@ const CartDropdown = ({ onClose }: CartDropdown) => {
                 </div>
                 <hr className="border border-stone-600 w-full" />
                 <div className="w-full">
+                    {hasCheckout &&
+                        <div className="bg-green-200 rounded-lg p-3 my-4">
+                            <p>Pedido realizado com sucesso!</p>
+                            <Link to={'/meus-pedidos'} className="underline cursor-pointer font-semibold">
+                                Verificar pedidos
+                            </Link>
+                        </div>
+                    }
+
                     {cartItems.length > 0 ?
                         cartItems.map((el) => {
                             return (
@@ -94,6 +132,7 @@ const CartDropdown = ({ onClose }: CartDropdown) => {
                             </button>
                             <SecondaryBtn
                                 text="Finalizar compra"
+                                onClick={() => handleCheckout()}
                             />
                         </div>
                     </> : <></>
