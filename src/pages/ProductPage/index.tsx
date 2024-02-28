@@ -1,26 +1,65 @@
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import DefaultBtn from "../../components/DefaultBtn"
+import { useEffect, useState } from "react";
+import routes from "../../enum/routes";
+import Api from "../../services/Api";
+import ProductCard from "../../components/ProductCard";
+import Cart from "../../services/Cart";
 
 const ProductPage = () => {
+    const navigate = useNavigate()
+    const { pathname } = useLocation()
+    const { productId } = useParams()
+    const [data, setData] = useState<ProductCard>()
+    const [itemInCart, setItemInCart] = useState(false)
+
+    if (!productId) {
+        navigate(routes.products)
+    }
+
+    const getData = async () => {
+        try {
+            const response = await Api.getData(`/products/${productId}`)
+            const data = await response.json()
+            setData(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+        getData()
+    }, [pathname]);
+
+    const handleClickPurchase = () => {
+        if (itemInCart) { return }
+        data && Cart.updateCart(data)
+        setItemInCart(true)
+    }
+
     return (
         <main className="min-h-0 md:min-h-screen px-4 py-4 md:w-3/4 mx-auto container">
-            <section className="flex flex-col md:flex-row p-6 bg-slate-100 justify-around items-center gap-y-6 md:gap-y-0">
+            <section className="flex flex-col md:flex-row p-6 bg-slate-100 justify-around items-center md:items-start gap-y-6 md:gap-y-0">
                 <div>
-                    <img src="https://placehold.co/300" alt="x" />
+                    <img src={data && data.img} alt="x" className="md:max-w-80 md:min-h-80 md:object-cover" />
                     <div className="hidden md:block">
                         <p className="text-blue-900 font-semibold text-lg">
                             Quantidade disponível:
                         </p>
-                        <p>100 itens disponíveis</p>
+                        <p>{data && data.qtd_stock} itens disponíveis</p>
                     </div>
                 </div>
-                <div className="w-full md:w-1/2 flex flex-col">
-                    <h2 className="text-3xl text-blue-900 font-semibold">
-                        Smart What
-                    </h2>
-                    <p>Relógio</p>
-                    <p className="grow">
-                        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quia ullam quam nulla aspernatur quos earum eligendi, vitae nemo!
-                    </p>
+                <div className="w-full md:w-1/2 flex flex-col gap-y-8">
+                    <div>
+                        <h2 className="text-3xl text-blue-900 font-semibold">
+                            {data && data.title}
+                        </h2>
+                        <p>Relógio</p>
+                        <p className="grow">
+                            {data && data.description}
+                        </p>
+                    </div>
                     <div className="flex flex-col md:flex-row gap-x-6">
                         <div className="flex flex-row md:flex-col">
                             <h4>
@@ -30,6 +69,7 @@ const ProductPage = () => {
                         </div>
                         <DefaultBtn
                             className="w-full"
+                            onClick={handleClickPurchase}
                             text="Comprar"
                         />
                     </div>

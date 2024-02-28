@@ -1,16 +1,20 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { anyObject } from '../..'
+import routes from '../../enum/routes'
 
 interface ProductCard extends React.HTMLAttributes<HTMLDivElement> {
     id: string,
     base_price: string,
     qtd?: number,
     img: string,
-    categories: anyObject[]
+    categories: anyObject[],
+    qtd_stock?: number,
+    description?: string
 }
 
-const ProductCard = ({ title, base_price, categories, img, ...props }: ProductCard) => {
+const ProductCard = ({ id, title, base_price, categories, img, ...props }: ProductCard) => {
     const action = props.onClick as unknown as Function
+    const navigate = useNavigate()
 
     const handleButtonClick = () => {
         if (action) {
@@ -18,7 +22,10 @@ const ProductCard = ({ title, base_price, categories, img, ...props }: ProductCa
         }
     }
     return (
-        <article className='w-36 md:w-32 shadow-md h-80 flex flex-col justify-start cursor-pointer'>
+        <article
+            className='w-36 md:w-32 shadow-md h-80 flex flex-col justify-start cursor-pointer'
+            onClick={() => { navigate(`${routes.products}/${id}`) }}
+        >
             <img
                 src={img}
                 alt=""
@@ -33,7 +40,6 @@ const ProductCard = ({ title, base_price, categories, img, ...props }: ProductCa
                         {categories[0].title}
                     </Link>
                     <p >
-
                     </p>
                     <p className='text-orange-500 text-lg font-bold'>
                         R$ {base_price.replace('.', ',')}

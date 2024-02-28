@@ -33,6 +33,11 @@ class Cart {
         localStorage.setItem(this.cartKey, JSON.stringify(updatedCart))
     }
 
+    /**
+     * Receives a ProductCard object and adds it to the cart
+     * @param {[ProductCard]} product The product to be stored
+     * @returns {void}
+     */
     updateCart(obj: ProductCard) {
         const currCart = localStorage.getItem(this.cartKey)
         if (currCart === null) {
