@@ -36,14 +36,14 @@ const ProductsPage = () => {
     }
 
     return (
-        <main className="min-h-screen px-4 py-4 md:w-4/5 mx-auto flex gap-x-6 container">
-            <div className="w-1/5">
+        <main className="min-h-screen px-4 py-4 md:w-4/5 items-center md:items-start mx-auto flex flex-col md:flex-row gap-6 container">
+            <div className="w-full md:w-1/5">
                 <CategoryFilter
                     categories={data && data}
                     activeId={params.get('cat')}
                 />
             </div>
-            <div className="w-full flex gap-x-4 flex-wrap">
+            <div className="w-full flex gap-x-4 flex-wrap justify-center md:justify-start">
                 {Array.isArray(products) && products?.map((el) => {
                     return (
                         <ProductCard
