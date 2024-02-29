@@ -23,8 +23,8 @@ const CategoryPage = () => {
                 {data.length > 1 && data.map((el) => {
                     return (
                         <CategoryCard
+                            to={el.id}
                             key={el.title}
-                            id={el.id}
                             title={el.title}
                             img={el.img}
                         />

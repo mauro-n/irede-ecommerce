@@ -70,7 +70,8 @@ const ProductPage = () => {
                         <DefaultBtn
                             className="w-full"
                             onClick={handleClickPurchase}
-                            text="Comprar"
+                            bgColor={itemInCart && 'bg-green-500'}
+                            text={itemInCart ? "Item adicionado no carrinho" : "Comprar"}
                         />
                     </div>
                 </div>
