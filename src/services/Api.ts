@@ -1,4 +1,5 @@
 import { anyObject } from '..'
+import { AuthenticationError } from '../exceptions/AuthenticationError'
 import Auth from './Auth'
 
 class Api {
@@ -19,6 +20,10 @@ class Api {
     }
 
     async getDataAuth(url: string) {
+        if (!Auth.currentUser()) {
+            throw new AuthenticationError('Unauthenticated', 'AuthenticationError')
+        }
+
         const { token } = Auth.currentUser()
 
         return fetch(`${this.baseUrl}${url}`, {

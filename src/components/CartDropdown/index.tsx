@@ -60,6 +60,7 @@ const CartDropdown = ({ onClose }: CartDropdown) => {
                 navigate('/login?to=cart')
             }
         } catch (err) {
+            navigate('/login')
             console.log(err)
         }
     }

@@ -13,8 +13,6 @@ const HomePage = () => {
     const { setContext } = useContext(Context)
 
     useEffect(() => {
-        const img = new Image()
-        img.src = desktopBanner
         getData('/products')
     }, [])
 
@@ -43,7 +41,7 @@ const HomePage = () => {
                         <img
                             loading='eager'
                             src={mobileBanner}
-                            alt=""
+                            alt="Banner"
                             className='w-full'
                         />
                         <div className='flex absolute bottom-4 justify-center w-full'>
@@ -82,6 +80,7 @@ const HomePage = () => {
                                 img={el.img}
                                 onClick={() => handleAddToCart(el)}
                                 categories={el.categories}
+                                qtd={1}
                             />
                         )
                     })}

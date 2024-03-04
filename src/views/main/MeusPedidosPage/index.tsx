@@ -23,6 +23,7 @@ const MeusPedidosPage = () => {
             const data = await response.json()
             setData(data)
         } catch (err) {
+            navigate('/login')
             console.log(err)
         }
     }
