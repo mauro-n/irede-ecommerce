@@ -1,11 +1,8 @@
-import Auth from "./Auth"
-
-type anyObject = {
-    [key: string]: any
-}
+import { anyObject } from '..'
+import Auth from './Auth'
 
 class Api {
-    readonly baseUrl = "http://localhost:3000"
+    readonly baseUrl = 'http://localhost:3000'
 
     async getData(url: string) {
         return fetch(`${this.baseUrl}${url}`)
@@ -15,7 +12,7 @@ class Api {
         return fetch(`${this.baseUrl}${url}`, {
             method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify(object)
         })
@@ -26,7 +23,7 @@ class Api {
 
         return fetch(`${this.baseUrl}${url}`, {
             headers: {
-                "Authorization": `Bearer ${token}`
+                'Authorization': `Bearer ${token}`
             }
         })
     }
@@ -37,8 +34,8 @@ class Api {
         return fetch(`${this.baseUrl}${url}`, {
             method: 'POST',
             headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}`
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(object)
         })

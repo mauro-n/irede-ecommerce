@@ -1,5 +1,5 @@
 import './App.css'
-import { MainContextProvider } from './context'
+import { MainContextProvider } from './store'
 import { RouterProvider } from 'react-router-dom'
 import router from './router'
 

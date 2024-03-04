@@ -1,4 +1,4 @@
-import ProductCard from "../components/ProductCard"
+import ProductCard from '../components/Cards/ProductCard'
 
 class Cart {
     readonly cartKey: string = 'cart'
@@ -38,20 +38,20 @@ class Cart {
      * @param {[ProductCard]} product The product to be stored
      * @returns {void}
      */
-    updateCart(obj: ProductCard) {
+    updateCart(obj: ProductCard, qtd = 1) {
         const currCart = localStorage.getItem(this.cartKey)
         if (currCart === null) {
-            localStorage.setItem(this.cartKey, JSON.stringify([{ ...obj, qtd: 1 }]))
+            localStorage.setItem(this.cartKey, JSON.stringify([{ ...obj, qtd: qtd }]))
         } else {
             const currList: ProductCard[] = JSON.parse(currCart)
             const currentElement = currList.find((el) => el.id === obj.id)
-            var updatedList: ProductCard[];
+            let updatedList: ProductCard[]
             if (!currentElement) {
-                updatedList = [...currList, { ...obj, qtd: 1 }]
+                updatedList = [...currList, { ...obj, qtd: qtd }]
             } else {
                 updatedList = currList.map((el) => {
-                    if (el.id === obj.id) {
-                        return { ...obj, qtd: currentElement.qtd ? currentElement.qtd + 1 : 1 }
+                    if (el.id === obj.id) {                        
+                        return { ...obj, qtd: el.qtd + qtd }
                     } else {
                         return el
                     }

@@ -1,15 +1,15 @@
-import { createBrowserRouter } from "react-router-dom";
-import { PageLayout } from "../components/PageLayout";
-import MeusPedidosPage from "../pages/MeusPedidosPage";
-import HomePage from "./../pages/HomePage"
-import LoginPage from "../pages/LoginPage";
-import RegisterPage from "../pages/RegisterPage";
-import CategoryPage from "../pages/CategoryPage";
+import { createBrowserRouter } from 'react-router-dom'
+import { PageLayout } from '../layouts/main'
+import MeusPedidosPage from '../views/main/MeusPedidosPage'
+import HomePage from '../views/main/HomePage'
+import LoginPage from '../views/auth/LoginPage'
+import RegisterPage from '../views/auth/RegisterPage'
+import CategoryPage from '../views/main/CategoryPage'
 import routesEnum from '../enum/routes'
-import DashboardPage from "../pages/DashboardPage";
-import DashboardLayout from "../components/DashboardLayout";
-import ProductPage from "../pages/ProductPage";
-import ProductsPage from "../pages/ProductsPage";
+import DashboardPage from '../views/dashboard'
+import DashboardLayout from '../layouts/dashboard'
+import ProductPage from '../views/main/ProductPage'
+import ProductsPage from '../views/main/ProductsPage'
 
 const router = createBrowserRouter([
     {

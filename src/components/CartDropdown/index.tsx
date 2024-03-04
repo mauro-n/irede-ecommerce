@@ -1,17 +1,17 @@
-import { useContext, useEffect, useState } from "react"
-import { Context } from "../../context"
+import { useContext, useEffect, useState } from 'react'
+import { Context } from '../../store'
 import styles from './styles.module.css'
-import cartService from "../../services/Cart"
-import ProductCard from "../ProductCard"
-import CartCard from "../CartCard"
-import DefaultBtn from "../DefaultBtn"
-import SecondaryBtn from "../SecondaryBtn"
-import { Link, useNavigate } from "react-router-dom"
-import Api from "../../services/Api"
-import Cart from "../../services/Cart"
+import cartService from '../../services/Cart'
+import ProductCard from '../Cards/ProductCard'
+import CartCard from '../Cards/CartCard'
+import DefaultBtn from '../Buttons/DefaultBtn'
+import SecondaryBtn from '../Buttons/SecondaryBtn'
+import { Link, useNavigate } from 'react-router-dom'
+import Api from '../../services/Api'
+import Cart from '../../services/Cart'
 
 interface CartDropdown {
-    onClose?: Function
+    onClose?: () => void
 }
 
 const CartDropdown = ({ onClose }: CartDropdown) => {
