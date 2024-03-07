@@ -3,7 +3,7 @@ import ShoppingCartBtn from '../../Buttons/ShoppingCartBtn'
 import DefaultBtn from '../../Buttons/DefaultBtn'
 import { HamburguerBtn } from '../../Buttons/HamburguerBtn'
 import { SearchBar } from '../../SearchBar'
-import { Link, useLocation } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { useContext, useEffect, useState } from 'react'
 import CartDropdown from '../../CartDropdown'
 import { Context, contextContent } from '../../../store'
@@ -13,6 +13,7 @@ export const Navbar = () => {
     const location = useLocation()
     const [cartDrop, setCartDrop] = useState(false)
     const { context, setContext } = useContext(Context)
+    const navigate = useNavigate()
 
     useEffect(() => {
         setCartDrop(false)
@@ -34,15 +35,19 @@ export const Navbar = () => {
                         onKeyDown={(event) => { event.key === 'Enter' ? toggleModal() : null }}
                     />
                 </div>
-                <img src={logo} className='h-10 -translate-y-1' alt="E-Rede Store" />
-                <div className='hidden md:block flex-1'>
+                <img src={logo}
+                    className='h-10 -translate-y-1 cursor-pointer'
+                    alt="E-Rede Store"
+                    onClick={() => navigate('/')}
+                />
+                <div className='hidden md:flex flex-1 justify-center'>
                     <SearchBar />
                 </div>
                 <div className='flex items-center gap-x-8'>
                     {context && context.user ?
-                        <div className='hidden md:block'>
-                            <img src="" alt="" />
-                            <p className='text-white'>
+                        <div className='hidden md:flex md:gap-x-6'>
+                            <img src="https://placehold.co/50" className='rounded-full' alt="" />
+                            <p className='text-white font-medium'>
                                 Bem vindo(a)<br />{context.user.name}!
                             </p>
                         </div> :

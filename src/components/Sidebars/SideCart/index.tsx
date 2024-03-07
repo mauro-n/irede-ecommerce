@@ -11,7 +11,7 @@ const SideCart = () => {
     const { context, setContext } = useContext(Context)
     const [cartItems, setCartItems] = useState<ProductCard[]>([])
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [errMsg, setErrMsg] = useState('')
+    const [, setErrMsg] = useState('')
     const wrapperRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {

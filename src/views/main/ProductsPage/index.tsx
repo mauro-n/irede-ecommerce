@@ -55,6 +55,7 @@ const ProductsPage = () => {
                             base_price={el.base_price}
                             img={el.img}
                             categories={el.categories}
+                            qtd={1}
                         />
                     )
                 })}

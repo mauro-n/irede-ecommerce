@@ -15,7 +15,7 @@ export const SidebarBtn = ({ title, active, to = '#', ...props }: SidebarBtn) =>
 
 
     useEffect(() => {
-        if (context.showSidebar === true && active) {
+        if (context && context.showSidebar === true && active) {
             ref.current && ref.current.focus()
         }
     }, [context])
